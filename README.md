@@ -32,50 +32,69 @@ This is a **hands-on tutorial** that teaches you how to evaluate AI systems prop
        └────────────┘       └────────────┘       └────────────┘
 ```
 
-## The Evaluation Stages
-
-| Stage | What You'll Learn |
-|-------|-------------------|
-| **1. Golden Sets** | Curated input/output pairs - your baseline for correctness |
-| **2. Labeled Scenarios** | Categorized test cases by complexity and expected behavior |
-| **3. Replay Harnesses** | Record and replay for deterministic, reproducible tests |
-| **4. Rubrics** | Multi-dimensional scoring with LLM-as-judge |
-| **5. Experiments** | Compare agent configurations with data-driven decisions |
-
-## Course Structure
-
-Work through the stages in order. Start with `START_HERE.md` in the root.
-
-```
-START_HERE.md                    # Start here - prerequisites and concepts
-setup_environment/               # Get Docker, databases, and dependencies running
-setup_seed_data/                 # Load the fictional Acme Corp company data
-setup_agent/                     # Build Ask Acme step by step
-stage_1_golden_sets/             # Baseline correctness
-stage_2_labeled_scenarios/       # Coverage mapping
-stage_3_replay_harnesses/        # Reproducibility
-stage_4_rubrics/                 # Structured scoring
-stage_5_experiments/             # Configuration comparison
-```
-
 ## Quick Start
 
+### 1. Clone and check prerequisites
+
 ```bash
-# Clone the repo
 git clone <repo-url>
 cd prod-evals-cookbook
 
-# Read the start guide
-cat START_HERE.md
-
-# Then begin with environment setup
-cd setup_environment
-cat README.md
+# Verify you have the required tools
+python --version    # Need 3.11-3.13
+docker --version    # Need Docker running
+uv --version        # Need uv installed
 ```
+
+### 2. Complete the setup steps (in order!)
+
+```bash
+# Step 1: Start databases and install dependencies
+cd setup_environment
+docker compose up -d
+cd .. && uv sync
+cp setup_environment/env.example setup_environment/.env
+# Edit .env and add your OPENAI_API_KEY
+
+# Step 2: Load company data
+cd setup_seed_data
+uv run python seed_all.py
+
+# Step 3: Try the agent
+cd ../setup_agent
+uv run jupyter notebook demo.ipynb
+```
+
+### 3. Start the evaluation stages
+
+```bash
+cd stage_1_golden_sets
+uv run python evaluator.py
+```
+
+## Course Structure
+
+### Setup (Complete These First)
+
+| Step | Folder | What To Do |
+|------|--------|------------|
+| 1 | `setup_environment/` | Start Docker, install deps, configure API keys |
+| 2 | `setup_seed_data/` | Load Acme Corp data into databases |
+| 3 | `setup_agent/` | Build and test the Ask Acme agent |
+
+### Evaluation Stages
+
+| Stage | Folder | What You'll Learn |
+|-------|--------|-------------------|
+| 1 | `stage_1_golden_sets/` | Curated input/output pairs - baseline correctness |
+| 2 | `stage_2_labeled_scenarios/` | Categorized test cases - coverage mapping |
+| 3 | `stage_3_replay_harnesses/` | Record/replay - reproducibility |
+| 4 | `stage_4_rubrics/` | Multi-dimensional scoring with LLM-as-judge |
+| 5 | `stage_5_experiments/` | Compare agent configurations with data |
 
 ## Prerequisites
 
-- Python 3.11+
+- Python 3.11-3.13
 - [uv](https://docs.astral.sh/uv/) - Fast Python package manager
 - Docker & Docker Compose
 - OpenAI API key (for embeddings and LLM calls)
@@ -87,12 +106,13 @@ All data is synthetic but realistic. **Acme Corp** is a fictional B2B project ma
 
 - 200 employees across Engineering, Product, Sales, CS, and People Ops
 - 2,400+ customers and $18M ARR
-- 3 years of business data, 45 internal documents, 75 Jira tickets, 200+ Slack messages
+- 3 years of business data, 8 internal documents, 75 Jira tickets, 200+ Slack messages
 
 This gives you a rich, realistic dataset to query and evaluate against.
 
 ## Documentation
 
+- See `START_HERE.md` for detailed setup instructions
 - Each stage has its own README with theory and hands-on exercises
 
 ## License

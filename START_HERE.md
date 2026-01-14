@@ -15,27 +15,9 @@ By the end of this cookbook, you'll have:
 2. A comprehensive evaluation framework
 3. Practical patterns you can apply to your own systems
 
-## The Stages
-
-### Setup (Get the project running)
-
-| Setup | Folder | What It Does |
-|-------|--------|--------------|
-| Environment | `setup_environment/` | Docker, dependencies, configuration |
-| Seed Data | `setup_seed_data/` | Load fictional company data |
-| Agent | `setup_agent/` | Build the Ask Acme agent |
-
-### Evaluation Stages
-
-| Stage | Folder | What It Does |
-|-------|--------|--------------|
-| 1 | `stage_1_golden_sets/` | Curated input/output pairs |
-| 2 | `stage_2_labeled_scenarios/` | Categorized test cases |
-| 3 | `stage_3_replay_harnesses/` | Record/replay for deterministic tests |
-| 4 | `stage_4_rubrics/` | Multi-dimensional scoring |
-| 5 | `stage_5_experiments/` | Compare agent configurations |
-
 ## Prerequisites
+
+Before you begin, make sure you have:
 
 ### Required
 - **Python 3.11-3.13** - We use modern Python features (not 3.14 due to Pydantic V1)
@@ -43,11 +25,7 @@ By the end of this cookbook, you'll have:
 - **uv** - For Python dependency management
 - **OpenAI API Key** - For embeddings and LLM calls
 
-### Optional but Recommended
-- **VS Code or Cursor** - With Python extension
-- **Jupyter** - For interactive notebooks
-
-## Quick Setup Check
+### Quick Check
 
 ```bash
 # Python version (need 3.11-3.13)
@@ -57,40 +35,84 @@ python --version
 docker --version
 docker compose version
 
-# uv
+# uv (install with: curl -LsSf https://astral.sh/uv/install.sh | sh)
 uv --version
 ```
 
-### Installing uv (if needed)
+## Getting Started: Setup (Do These First!)
+
+Before running any evaluations, you must complete these three setup steps **in order**:
+
+### Step 1: Environment Setup
+Start Docker containers for Postgres and MongoDB, install Python dependencies, and configure your API keys.
 
 ```bash
-# macOS / Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Or with Homebrew
-brew install uv
+cd setup_environment
+cat README.md      # Read the instructions
+docker compose up -d
+cd .. && uv sync   # Install Python dependencies
 ```
 
-## How to Use This Cookbook
+### Step 2: Seed the Data
+Load Acme Corp's fictional company data into the databases.
 
-Work through the stages **in order**. Each builds on the previous:
+```bash
+cd setup_seed_data
+cat README.md      # Read the instructions
+uv run python seed_all.py
+```
+
+### Step 3: Build the Agent
+Explore the Ask Acme agent and verify it's working.
+
+```bash
+cd setup_agent
+cat README.md      # Read the instructions
+uv run jupyter notebook demo.ipynb
+```
+
+Once these three steps are complete, you're ready for the evaluation stages!
+
+---
+
+## Evaluation Stages
+
+After setup is complete, work through these evaluation stages in order:
+
+| Stage | Folder | What You'll Learn |
+|-------|--------|-------------------|
+| 1 | `stage_1_golden_sets/` | Curated input/output pairs - baseline correctness |
+| 2 | `stage_2_labeled_scenarios/` | Categorized test cases - coverage mapping |
+| 3 | `stage_3_replay_harnesses/` | Record/replay - reproducibility + rich metrics |
+| 4 | `stage_4_rubrics/` | Multi-dimensional scoring with LLM-as-judge |
+| 5 | `stage_5_experiments/` | Compare agent configurations with data |
+
+---
+
+## Full Directory Structure
 
 ```
 START_HERE.md                    ← You are here
-setup_environment/               ← Next: Get infrastructure running
-setup_seed_data/                 ← Load the fictional company data
-setup_agent/                     ← Build Ask Acme
-stage_1_golden_sets/             ← Start evaluations
+
+# Setup (do these first, in order)
+setup_environment/               ← Step 1: Docker, dependencies, API keys
+setup_seed_data/                 ← Step 2: Load company data
+setup_agent/                     ← Step 3: Build and test the agent
+
+# Evaluation stages (after setup is complete)
+stage_1_golden_sets/             ← Start evaluations here
 stage_2_labeled_scenarios/       ← Categorized testing
 stage_3_replay_harnesses/        ← Deterministic testing
 stage_4_rubrics/                 ← Quality scoring
 stage_5_experiments/             ← Compare configurations
 ```
 
-Each stage contains:
+Each folder contains:
 - **README.md** - Concepts and instructions
 - **Code files** - Implementation
 - **walkthrough.ipynb** - Interactive exercises (where applicable)
+
+---
 
 ## The Fictional Company: Acme Corp
 
@@ -109,9 +131,11 @@ You'll query Acme Corp's:
 - 3 years of business metrics
 - Jira tickets and Slack conversations
 
+---
+
 ## Ready?
 
-Start with environment setup:
+Start with **Step 1: Environment Setup**:
 
 ```bash
 cd setup_environment
