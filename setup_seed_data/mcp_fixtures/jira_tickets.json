@@ -1,0 +1,156 @@
+{
+  "projects": [
+    {
+      "key": "PLAT",
+      "name": "Platform",
+      "lead": "Sarah Chen",
+      "description": "Core platform, API, infrastructure"
+    },
+    {
+      "key": "MOB",
+      "name": "Mobile",
+      "lead": "Alex Rivera",
+      "description": "iOS and Android apps"
+    },
+    {
+      "key": "GROW",
+      "name": "Growth",
+      "lead": "Marcus Williams",
+      "description": "Activation, onboarding, experimentation"
+    }
+  ],
+  "tickets": [
+    {
+      "key": "PLAT-1247",
+      "type": "Bug",
+      "priority": "P0",
+      "status": "Resolved",
+      "summary": "Authentication service returning 500 errors intermittently",
+      "description": "Starting around 2:30 PM PT, users are experiencing intermittent 500 errors when trying to log in. Error rate is approximately 5% of login attempts.\n\n**Impact**: ~200 users affected\n**Root Cause**: Redis connection pool exhaustion\n**Resolution**: Increased pool size from 50 to 200",
+      "reporter": "Emily Watson",
+      "assignee": "James Liu",
+      "created": "2025-01-12T14:45:00Z",
+      "updated": "2025-01-12T16:30:00Z",
+      "resolved": "2025-01-12T15:55:00Z",
+      "labels": ["auth", "production", "incident"],
+      "components": ["Authentication", "API Gateway"]
+    },
+    {
+      "key": "PLAT-1198",
+      "type": "Story",
+      "priority": "P2",
+      "status": "In Progress",
+      "summary": "Implement rate limiting for public API endpoints",
+      "description": "As discussed in the API review, we need to implement rate limiting to protect against abuse.\n\n**Acceptance Criteria**:\n- 1000 requests/min for authenticated users\n- 100 requests/min for unauthenticated\n- Return 429 with Retry-After header\n- Dashboard for monitoring rate limit hits",
+      "reporter": "Marcus Williams",
+      "assignee": "Priya Patel",
+      "created": "2024-12-15T10:00:00Z",
+      "updated": "2025-01-10T09:00:00Z",
+      "labels": ["api", "security"],
+      "story_points": 8
+    },
+    {
+      "key": "MOB-892",
+      "type": "Bug",
+      "priority": "P1",
+      "status": "Open",
+      "summary": "iOS app crashes when opening project with 500+ tasks",
+      "description": "Users with large projects are experiencing crashes when trying to open the project view.\n\n**Reproduction**:\n1. Open project with 500+ tasks\n2. Scroll through task list\n3. App crashes after ~10 seconds\n\n**Device**: iPhone 12 and earlier\n**iOS Version**: 16.x and 17.x",
+      "reporter": "Customer Success",
+      "assignee": null,
+      "created": "2025-01-10T11:30:00Z",
+      "updated": "2025-01-10T11:30:00Z",
+      "labels": ["crash", "performance", "ios"],
+      "components": ["iOS App"]
+    },
+    {
+      "key": "MOB-885",
+      "type": "Story",
+      "priority": "P2",
+      "status": "In Progress",
+      "summary": "Implement offline mode for task viewing",
+      "description": "Allow users to view their tasks when offline. Changes sync when connection restored.\n\n**Scope**:\n- Cache last 50 tasks per project\n- Show offline indicator\n- Queue changes for sync",
+      "reporter": "Michael Brown",
+      "assignee": "Alex Rivera",
+      "created": "2024-12-01T09:00:00Z",
+      "updated": "2025-01-08T14:00:00Z",
+      "labels": ["offline", "mobile"],
+      "story_points": 13
+    },
+    {
+      "key": "PLAT-1250",
+      "type": "Task",
+      "priority": "P2",
+      "status": "Open",
+      "summary": "Add auto-scaling for Redis connection pool",
+      "description": "Follow-up from PLAT-1247 incident. Implement auto-scaling for Redis connections based on load.\n\n**Requirements**:\n- Scale up when utilization > 70%\n- Scale down when utilization < 30% for 10 min\n- Alert when near max capacity",
+      "reporter": "James Liu",
+      "assignee": "James Liu",
+      "created": "2025-01-12T16:00:00Z",
+      "updated": "2025-01-12T16:00:00Z",
+      "labels": ["infrastructure", "redis", "follow-up"]
+    },
+    {
+      "key": "GROW-234",
+      "type": "Story",
+      "priority": "P2",
+      "status": "Done",
+      "summary": "Improve onboarding flow completion rate",
+      "description": "Current onboarding completion is 62%. Target: 75%.\n\n**Changes**:\n- Reduce steps from 7 to 4\n- Add skip option for optional steps\n- Show progress indicator\n- Send reminder email after 24h if incomplete",
+      "reporter": "Marcus Williams",
+      "assignee": "Michael Brown",
+      "created": "2024-11-15T10:00:00Z",
+      "updated": "2025-01-05T11:00:00Z",
+      "resolved": "2025-01-05T11:00:00Z",
+      "labels": ["onboarding", "activation"],
+      "story_points": 5
+    },
+    {
+      "key": "PLAT-1180",
+      "type": "Bug",
+      "priority": "P3",
+      "status": "Open",
+      "summary": "Webhook retries not respecting exponential backoff",
+      "description": "Webhook retries are happening too quickly, causing issues for customers with slow endpoints.\n\n**Expected**: 1s, 5s, 30s, 2min, 10min\n**Actual**: All retries within 10 seconds",
+      "reporter": "David Kim",
+      "assignee": null,
+      "created": "2024-12-20T15:30:00Z",
+      "updated": "2024-12-20T15:30:00Z",
+      "labels": ["webhooks", "bug"],
+      "components": ["Integrations"]
+    },
+    {
+      "key": "MOB-890",
+      "type": "Bug",
+      "priority": "P2",
+      "status": "In Progress",
+      "summary": "Push notifications not delivered on Android 14",
+      "description": "Users on Android 14 report not receiving push notifications.\n\n**Affected**: ~15% of Android user base\n**Suspected cause**: New notification permission changes in Android 14",
+      "reporter": "Customer Success",
+      "assignee": "Alex Rivera",
+      "created": "2025-01-08T09:00:00Z",
+      "updated": "2025-01-11T14:00:00Z",
+      "labels": ["android", "notifications", "bug"]
+    }
+  ],
+  "sprints": [
+    {
+      "id": 124,
+      "name": "Platform Sprint 24",
+      "project": "PLAT",
+      "start_date": "2025-01-06",
+      "end_date": "2025-01-20",
+      "goal": "Complete rate limiting and resolve auth stability issues",
+      "status": "active"
+    },
+    {
+      "id": 125,
+      "name": "Mobile Sprint 18",
+      "project": "MOB",
+      "start_date": "2025-01-06",
+      "end_date": "2025-01-20",
+      "goal": "Offline mode and performance improvements",
+      "status": "active"
+    }
+  ]
+}

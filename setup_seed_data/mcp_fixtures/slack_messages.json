@@ -1,0 +1,168 @@
+{
+  "channels": [
+    {"id": "C001", "name": "general", "purpose": "Company-wide announcements"},
+    {"id": "C002", "name": "engineering", "purpose": "Engineering discussions"},
+    {"id": "C003", "name": "product", "purpose": "Product updates and debates"},
+    {"id": "C004", "name": "incidents", "purpose": "Production incident coordination"},
+    {"id": "C005", "name": "customer-feedback", "purpose": "Voice of the customer"}
+  ],
+  "users": [
+    {"id": "U001", "name": "Sarah Chen", "title": "VP Engineering"},
+    {"id": "U002", "name": "Marcus Williams", "title": "CPO"},
+    {"id": "U003", "name": "Jennifer Martinez", "title": "CRO"},
+    {"id": "U004", "name": "David Kim", "title": "VP Customer Success"},
+    {"id": "U005", "name": "James Liu", "title": "Staff Engineer"},
+    {"id": "U006", "name": "Priya Patel", "title": "Senior Engineer"},
+    {"id": "U007", "name": "Alex Rivera", "title": "Mobile Lead"},
+    {"id": "U008", "name": "Emily Watson", "title": "Engineering Manager"},
+    {"id": "U009", "name": "Michael Brown", "title": "Senior PM"},
+    {"id": "U010", "name": "Lisa Park", "title": "Enterprise AE"}
+  ],
+  "messages": [
+    {
+      "channel": "incidents",
+      "thread": [
+        {
+          "ts": "2025-01-12T14:47:23Z",
+          "user": "Emily Watson",
+          "text": "🚨 *SEV1 INCIDENT DECLARED* 🚨\n\nAuth service returning intermittent 500 errors. ~5% of login attempts failing.\n\n*Incident Commander*: @James Liu\n*Comms Lead*: @Emily Watson"
+        },
+        {
+          "ts": "2025-01-12T14:52:00Z",
+          "user": "James Liu",
+          "text": "Initial investigation: Redis connection pool showing exhaustion. Current pool size is 50, seeing 200+ waiting connections."
+        },
+        {
+          "ts": "2025-01-12T15:05:00Z",
+          "user": "James Liu",
+          "text": "Deployed hotfix to increase pool size to 200. Monitoring error rates."
+        },
+        {
+          "ts": "2025-01-12T15:20:00Z",
+          "user": "James Liu",
+          "text": "Error rate down to 0.1%. Continuing to monitor."
+        },
+        {
+          "ts": "2025-01-12T15:55:00Z",
+          "user": "Emily Watson",
+          "text": "✅ *INCIDENT RESOLVED*\n\n*Duration*: 1 hour 8 minutes\n*Root Cause*: Redis connection pool exhaustion\n*Resolution*: Increased pool size\n*Follow-up*: PLAT-1250 created for auto-scaling"
+        }
+      ]
+    },
+    {
+      "channel": "product",
+      "thread": [
+        {
+          "ts": "2025-01-10T10:00:00Z",
+          "user": "Marcus Williams",
+          "text": "Team, we need to finalize the new pricing tiers before the board meeting. Current proposal:\n\n• *Starter*: $12/user/mo (was $10)\n• *Professional*: $20/user/mo (no change)\n• *Enterprise*: Custom (no change)\n\nThoughts?"
+        },
+        {
+          "ts": "2025-01-10T10:15:00Z",
+          "user": "Jennifer Martinez",
+          "text": "From sales perspective, the increase on Starter is fine - most competitors are at $12-15 for similar features. Happy we're keeping Pro at $20."
+        },
+        {
+          "ts": "2025-01-10T10:22:00Z",
+          "user": "David Kim",
+          "text": "CS is supportive. The Starter customers most price-sensitive are on annual anyway, so they get the 20% discount."
+        },
+        {
+          "ts": "2025-01-10T10:45:00Z",
+          "user": "Marcus Williams",
+          "text": "Great, sounds like we have alignment. I'll update the pricing doc and we'll implement Feb 1 for new customers, existing customers grandfathered for 6 months."
+        }
+      ]
+    },
+    {
+      "channel": "engineering",
+      "thread": [
+        {
+          "ts": "2025-01-08T14:00:00Z",
+          "user": "Sarah Chen",
+          "text": "We need to make a call on the notification service rewrite. Options:\n\n1. *Keep Postgres* - Add partitioning, 3 weeks\n2. *Migrate to Kafka* - Better scalability, 6 weeks\n\nEngineering leads, please weigh in by EOD Thursday."
+        },
+        {
+          "ts": "2025-01-08T14:30:00Z",
+          "user": "James Liu",
+          "text": "Leaning toward Kafka. We're hitting Postgres limits at 10k notifications/min. With mobile push coming, we'll easily 10x that."
+        },
+        {
+          "ts": "2025-01-08T15:00:00Z",
+          "user": "Priya Patel",
+          "text": "Agree with James. Kafka also gives us replay capability for debugging."
+        },
+        {
+          "ts": "2025-01-08T16:00:00Z",
+          "user": "Alex Rivera",
+          "text": "From mobile side, we need the higher throughput. Kafka gets my vote."
+        },
+        {
+          "ts": "2025-01-09T09:00:00Z",
+          "user": "Sarah Chen",
+          "text": "Consensus on Kafka. @James Liu will lead. Kicking off next sprint. Thanks everyone! 🎉"
+        }
+      ]
+    },
+    {
+      "channel": "customer-feedback",
+      "thread": [
+        {
+          "ts": "2025-01-11T09:30:00Z",
+          "user": "Lisa Park",
+          "text": "Just got off a call with Globex ($18.5k MRR). They're asking about SSO group sync - auto-provision users based on AD groups. Is this on the roadmap?"
+        },
+        {
+          "ts": "2025-01-11T09:45:00Z",
+          "user": "Michael Brown",
+          "text": "It's in the Q2 roadmap! We've heard this from 5 other enterprise accounts. Target is April."
+        },
+        {
+          "ts": "2025-01-11T10:00:00Z",
+          "user": "David Kim",
+          "text": "Can we get early access for Globex? They've been great beta partners."
+        },
+        {
+          "ts": "2025-01-11T10:15:00Z",
+          "user": "Michael Brown",
+          "text": "Absolutely. I'll add them to the beta cohort. @Lisa Park can you set expectations for mid-March beta?"
+        }
+      ]
+    },
+    {
+      "channel": "customer-feedback",
+      "thread": [
+        {
+          "ts": "2025-01-09T11:00:00Z",
+          "user": "David Kim",
+          "text": "Heads up - three enterprise customers mentioned mobile app performance in their QBRs this week. Specifically the large project crash issue."
+        },
+        {
+          "ts": "2025-01-09T11:15:00Z",
+          "user": "Alex Rivera",
+          "text": "We're aware - it's MOB-892. It's affecting projects with 500+ tasks on older iPhones. We're prioritizing it for this sprint."
+        },
+        {
+          "ts": "2025-01-09T11:30:00Z",
+          "user": "David Kim",
+          "text": "Thanks Alex. Can I tell them to expect a fix in the next 2 weeks?"
+        },
+        {
+          "ts": "2025-01-09T11:45:00Z",
+          "user": "Alex Rivera",
+          "text": "Yes, that's a safe timeline. We'll have a beta build ready by end of next week."
+        }
+      ]
+    },
+    {
+      "channel": "general",
+      "thread": [
+        {
+          "ts": "2025-01-13T09:00:00Z",
+          "user": "Marcus Williams",
+          "text": "📢 *All Hands Reminder*\n\nThis Friday at 10am PT. We'll cover:\n• Q4 results\n• 2025 roadmap preview\n• New hire intros\n\nSee you there!"
+        }
+      ]
+    }
+  ]
+}

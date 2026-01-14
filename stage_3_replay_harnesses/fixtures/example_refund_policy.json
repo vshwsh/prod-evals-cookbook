@@ -1,0 +1,27 @@
+{
+  "session_id": "example_refund_policy",
+  "query": "What is our refund policy and how many refunds did we process in Q4 2024?",
+  "response": "Based on our refund policy (refund_policy.md), customers are eligible for a full refund if they cancel within 30 days of their initial subscription. Pro-rata refunds are available for annual subscriptions cancelled mid-term.\n\nAccording to our database, we processed 8 refunds in Q4 2024, totaling approximately $6,230. The refunds were approved by various CS team members including CS Reps and CS Managers, depending on the amount.",
+  "tool_calls": [
+    {
+      "tool_name": "vector_search",
+      "arguments": {"query": "refund policy"},
+      "result": ""
+    },
+    {
+      "tool_name": "sql_query", 
+      "arguments": {"question": "How many refunds were processed in Q4 2024?"},
+      "result": ""
+    }
+  ],
+  "retrieved_sources": ["refund_policy.md"],
+  "source_contents": [
+    "# Customer Refund Policy\n\nCustomers are eligible for a full refund if they cancel within 30 days of their initial subscription..."
+  ],
+  "timestamp": "2025-01-13T10:00:00",
+  "annotations": {
+    "relevant_sources": ["refund_policy.md"],
+    "expected_tools": ["vector_search", "sql_query"],
+    "expected_facts": ["30 days", "8 refunds", "Q4 2024", "pro-rata"]
+  }
+}

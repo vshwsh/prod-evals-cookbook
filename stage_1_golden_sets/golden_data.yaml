@@ -1,0 +1,212 @@
+# Golden Set - Curated test cases for Ask Acme
+#
+# These are manually verified input/output pairs that define correct behavior.
+# Run these after every change to catch regressions.
+
+version: "1.0"
+description: "Ask Acme Golden Set - 15 curated test cases"
+
+test_cases:
+  # ==========================================================================
+  # VECTOR SEARCH - Document queries
+  # ==========================================================================
+  
+  - id: "gs-001"
+    category: "vector_search"
+    query: "What is our remote work policy?"
+    expected_tools:
+      - vector_search
+    expected_sources:
+      - remote_work_policy.md
+    must_contain:
+      - "remote"
+      - "core hours"
+      - "10"  # 10 AM core hours
+    must_not_contain:
+      - "I don't know"
+      - "I cannot find"
+
+  - id: "gs-002"
+    category: "vector_search"
+    query: "How much is the home office stipend?"
+    expected_tools:
+      - vector_search
+    expected_sources:
+      - remote_work_policy.md
+    must_contain:
+      - "500"
+      - "stipend"
+    must_not_contain:
+      - "I don't know"
+
+  - id: "gs-003"
+    category: "vector_search"
+    query: "What is our PTO policy?"
+    expected_tools:
+      - vector_search
+    expected_sources:
+      - pto_policy.md
+    must_contain:
+      - "flexible"
+      - "PTO"
+    must_not_contain:
+      - "I don't know"
+
+  - id: "gs-004"
+    category: "vector_search"
+    query: "How do I handle a production incident?"
+    expected_tools:
+      - vector_search
+    expected_sources:
+      - incident_runbook.md
+    must_contain:
+      - "incident"
+      - "SEV"
+    must_not_contain:
+      - "I don't know"
+
+  - id: "gs-005"
+    category: "vector_search"
+    query: "What are our pricing tiers?"
+    expected_tools:
+      - vector_search
+    expected_sources:
+      - pricing_strategy.md
+    must_contain:
+      - "Starter"
+      - "Professional"
+      - "Enterprise"
+    must_not_contain:
+      - "I don't know"
+
+  # ==========================================================================
+  # SQL QUERIES - Metrics and data
+  # ==========================================================================
+
+  - id: "gs-006"
+    category: "sql_query"
+    query: "How many active customers do we have?"
+    expected_tools:
+      - sql_query
+    must_contain:
+      - "customer"
+    must_not_contain:
+      - "error"
+      - "failed"
+
+  - id: "gs-007"
+    category: "sql_query"
+    query: "How many refunds were processed in Q4 2024?"
+    expected_tools:
+      - sql_query
+    must_contain:
+      - "refund"
+      - "8"  # There are 8 refunds in Q4 2024
+    must_not_contain:
+      - "error"
+
+  - id: "gs-008"
+    category: "sql_query"
+    query: "What is our current MRR?"
+    expected_tools:
+      - sql_query
+    must_contain:
+      - "MRR"
+    must_not_contain:
+      - "error"
+      - "failed"
+
+  # ==========================================================================
+  # JIRA SEARCH - Tickets and bugs
+  # ==========================================================================
+
+  - id: "gs-009"
+    category: "jira_search"
+    query: "What P0 bugs are currently open?"
+    expected_tools:
+      - jira_search
+    must_contain:
+      - "PLAT-1247"  # The P0 auth bug
+    must_not_contain:
+      - "no bugs"
+      - "I cannot find"
+
+  - id: "gs-010"
+    category: "jira_search"
+    query: "Are there any mobile app crashes reported?"
+    expected_tools:
+      - jira_search
+    must_contain:
+      - "MOB-892"  # The iOS crash bug
+      - "crash"
+    must_not_contain:
+      - "no issues"
+
+  # ==========================================================================
+  # SLACK SEARCH - Discussions
+  # ==========================================================================
+
+  - id: "gs-011"
+    category: "slack_search"
+    query: "What did engineering decide about the notification service?"
+    expected_tools:
+      - slack_search
+    must_contain:
+      - "Kafka"  # They decided to migrate to Kafka
+    must_not_contain:
+      - "no discussion"
+      - "I cannot find"
+
+  - id: "gs-012"
+    category: "slack_search"
+    query: "Was there a recent incident? What happened?"
+    expected_tools:
+      - slack_search
+    must_contain:
+      - "incident"
+      - "auth"  # The auth incident
+    must_not_contain:
+      - "no incidents"
+
+  # ==========================================================================
+  # MULTI-TOOL - Queries requiring multiple sources
+  # ==========================================================================
+
+  - id: "gs-013"
+    category: "multi_tool"
+    query: "What is our refund policy and how many refunds did we process in Q4 2024?"
+    expected_tools:
+      - vector_search
+      - sql_query
+    expected_sources:
+      - refund_policy.md
+    must_contain:
+      - "refund"
+      - "30 days"  # 30-day refund window from policy
+      - "8"  # 8 refunds in Q4
+    must_not_contain:
+      - "I don't know"
+
+  - id: "gs-014"
+    category: "multi_tool"
+    query: "Are there open bugs related to authentication and what does the incident runbook say about auth issues?"
+    expected_tools:
+      - jira_search
+      - vector_search
+    must_contain:
+      - "PLAT-1247"  # Auth bug
+      - "incident"
+    must_not_contain:
+      - "no bugs"
+
+  # ==========================================================================
+  # EDGE CASES
+  # ==========================================================================
+
+  - id: "gs-015"
+    category: "edge_case"
+    query: "What is the meaning of life?"
+    expected_tools: []  # Should not call any tools for off-topic
+    must_contain:
+      - "Acme"  # Should redirect to what it CAN help with
+    # Note: We expect it to politely decline and redirect to Acme-related topics

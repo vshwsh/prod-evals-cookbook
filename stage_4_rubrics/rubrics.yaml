@@ -1,0 +1,154 @@
+# Rubric Definitions for Ask Acme Agent Evaluation
+# Each dimension is scored 0-5 with configurable weights
+
+version: "1.0"
+
+# Scoring scale reference
+scale:
+  max_score: 5
+  levels:
+    5: "Excellent - Exceeds expectations"
+    4: "Good - Meets expectations fully"
+    3: "Acceptable - Meets most expectations"
+    2: "Below Average - Missing key elements"
+    1: "Poor - Major deficiencies"
+    0: "Unacceptable - Complete failure"
+
+# Evaluation dimensions with weights (must sum to 1.0)
+dimensions:
+  relevance:
+    weight: 0.25
+    name: "Relevance"
+    description: "How well the response addresses the user's actual question"
+    criteria:
+      5: "Directly and completely addresses the question with no tangential information"
+      4: "Addresses the question well with minimal tangential content"
+      3: "Addresses the main point but includes unnecessary information"
+      2: "Partially addresses the question, missing key aspects"
+      1: "Barely related to the question asked"
+      0: "Completely off-topic, refuses to answer, or provides unrelated information"
+
+  accuracy:
+    weight: 0.35
+    name: "Accuracy"
+    description: "Whether the information provided is factually correct and grounded in sources"
+    criteria:
+      5: "All information is correct and directly verifiable from provided sources"
+      4: "Information is correct with minor details that could be more precise"
+      3: "Mostly correct but contains minor inaccuracies or unsupported claims"
+      2: "Contains notable inaccuracies or ungrounded statements"
+      1: "Significant errors or misleading information"
+      0: "Completely incorrect, fabricated, or contradicts source material"
+
+  completeness:
+    weight: 0.25
+    name: "Completeness"
+    description: "Whether the response fully answers all aspects of the question"
+    criteria:
+      5: "Comprehensive answer covering all aspects with appropriate depth"
+      4: "Covers all main points, minor details could be expanded"
+      3: "Covers key points but missing some relevant details"
+      2: "Partial answer, notable gaps in coverage"
+      1: "Minimal answer, major aspects missing"
+      0: "Fails to provide any substantive information"
+
+  clarity:
+    weight: 0.15
+    name: "Clarity"
+    description: "How well-organized, readable, and appropriately formatted the response is"
+    criteria:
+      5: "Crystal clear, well-organized, perfect length for the question"
+      4: "Clear and organized with minor formatting improvements possible"
+      3: "Understandable but could be better organized or more concise"
+      2: "Somewhat confusing or poorly structured"
+      1: "Difficult to follow, disorganized"
+      0: "Incomprehensible or severely malformed"
+
+# Thresholds for overall quality assessment
+thresholds:
+  excellent: 4.5
+  good: 3.5
+  acceptable: 2.5
+  poor: 1.5
+  # Below 1.5 is considered critical
+
+# Category-specific weight adjustments (optional overrides)
+# Use these when certain dimensions matter more for specific query types
+category_weights:
+  policy:
+    # Policy questions need high accuracy
+    accuracy: 0.45
+    relevance: 0.25
+    completeness: 0.20
+    clarity: 0.10
+    
+  metrics:
+    # Metrics need accuracy and completeness
+    accuracy: 0.40
+    completeness: 0.35
+    relevance: 0.15
+    clarity: 0.10
+    
+  engineering:
+    # Engineering docs need completeness and clarity
+    completeness: 0.35
+    accuracy: 0.30
+    clarity: 0.20
+    relevance: 0.15
+    
+  cross_tool:
+    # Cross-tool queries need completeness
+    completeness: 0.35
+    accuracy: 0.30
+    relevance: 0.25
+    clarity: 0.10
+
+# Test cases for rubric evaluation (references scenarios from previous stages)
+test_cases:
+  - id: "rb-001"
+    query: "What is our remote work policy?"
+    category: "policy"
+    expected_sources: ["remote_work_policy.md"]
+    notes: "Should accurately summarize remote work guidelines"
+    
+  - id: "rb-002"
+    query: "How many customers do we have?"
+    category: "metrics"
+    expected_sources: ["sql:customers"]
+    notes: "Should provide exact count from database"
+    
+  - id: "rb-003"
+    query: "What's the process for handling a P1 incident?"
+    category: "engineering"
+    expected_sources: ["incident_runbook.md"]
+    notes: "Should provide step-by-step process"
+    
+  - id: "rb-004"
+    query: "What's our refund policy and how many refunds did we process last month?"
+    category: "cross_tool"
+    expected_sources: ["refund_policy.md", "sql:refunds"]
+    notes: "Should combine policy info with metrics"
+    
+  - id: "rb-005"
+    query: "How much PTO do I get per year?"
+    category: "policy"
+    expected_sources: ["pto_policy.md"]
+    notes: "Should give specific number of days"
+    
+  - id: "rb-006"
+    query: "What are our code review standards?"
+    category: "engineering"
+    expected_sources: ["code_review_standards.md"]
+    notes: "Should list key standards and expectations"
+    
+  - id: "rb-007"
+    query: "What's our total revenue for 2025?"
+    category: "metrics"
+    expected_sources: ["sql:monthly_revenue"]
+    notes: "Should aggregate monthly data"
+    
+  - id: "rb-008"
+    query: "Who is on-call this week and what should they do if paged?"
+    category: "cross_tool"
+    expected_sources: ["oncall_handbook.md", "slack:oncall"]
+    notes: "Should combine handbook with current schedule"

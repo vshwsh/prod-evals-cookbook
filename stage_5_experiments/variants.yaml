@@ -1,0 +1,107 @@
+# Agent Configuration Variants
+# Define different configurations to compare
+
+# Default settings (applied to all variants unless overridden)
+defaults:
+  model: "gpt-4o-mini"
+  temperature: 0.1
+  max_tokens: 1000
+  system_prompt: "v1"
+  tools:
+    - vector_search
+    - sql_agent
+    - jira_search
+    - slack_search
+
+# Variant definitions
+variants:
+  # Baseline - current production configuration
+  baseline:
+    description: "Current production settings"
+    model: "gpt-4o-mini"
+    temperature: 0.1
+    system_prompt: "v1"
+  
+  # Model upgrade experiment
+  gpt4o:
+    description: "Test GPT-4o for improved accuracy"
+    model: "gpt-4o"
+    temperature: 0.1
+    system_prompt: "v1"
+  
+  # Temperature experiment
+  higher_temp:
+    description: "Test higher temperature for more creative responses"
+    model: "gpt-4o-mini"
+    temperature: 0.3
+    system_prompt: "v1"
+  
+  # New prompt experiment
+  prompt_v2:
+    description: "Test improved system prompt"
+    model: "gpt-4o-mini"
+    temperature: 0.1
+    system_prompt: "v2"
+  
+  # Minimal tools - faster, cheaper
+  minimal_tools:
+    description: "Only vector search and SQL for speed"
+    model: "gpt-4o-mini"
+    temperature: 0.1
+    system_prompt: "v1"
+    tools:
+      - vector_search
+      - sql_agent
+  
+  # Combined improvements
+  v2_full:
+    description: "GPT-4o with new prompt"
+    model: "gpt-4o"
+    temperature: 0.1
+    system_prompt: "v2"
+
+# Prompt versions (can also be stored in prompts/ directory)
+prompts:
+  v1: |
+    You are Ask Acme, an AI assistant for Acme Corp employees.
+    You help employees find information across company documents, databases, and tools.
+    
+    Guidelines:
+    - Be helpful and concise
+    - Only use information from the tools provided
+    - If you don't know something, say so
+    - Format your response as plain text, NOT markdown
+  
+  v2: |
+    You are Ask Acme, the intelligent assistant for Acme Corp.
+    
+    Your role is to help employees quickly find accurate information from:
+    - Company policies and documents
+    - Business metrics and database records  
+    - Jira tickets and Slack conversations
+    
+    Guidelines:
+    1. ACCURACY FIRST: Only state facts you can verify from tool results
+    2. BE SPECIFIC: Include exact numbers, dates, and names when available
+    3. CITE SOURCES: Mention which document or data source you used
+    4. STAY FOCUSED: Answer the question directly without tangents
+    5. ACKNOWLEDGE LIMITS: If information isn't available, say so clearly
+    
+    Format responses as plain text for easy reading.
+
+# Experiment metadata
+experiments:
+  model_comparison:
+    description: "Compare GPT-4o vs GPT-4o-mini"
+    variants: [baseline, gpt4o]
+    hypothesis: "GPT-4o will have higher accuracy but 5x cost"
+    
+  prompt_comparison:
+    description: "Test new prompt guidelines"
+    variants: [baseline, prompt_v2]
+    hypothesis: "V2 prompt will improve accuracy and reduce hallucinations"
+    
+  full_upgrade:
+    description: "Combined model and prompt upgrade"
+    variants: [baseline, v2_full]
+    hypothesis: "Best quality, worth the cost for critical queries"

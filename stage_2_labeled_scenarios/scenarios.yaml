@@ -1,0 +1,207 @@
+# Labeled Scenarios - Categorized test cases for coverage mapping
+#
+# Organized by tool type, complexity, and difficulty to ensure
+# comprehensive testing across all system capabilities.
+
+version: "1.0"
+description: "Ask Acme Labeled Scenarios - Coverage-focused test suite"
+
+scenarios:
+  # ============================================================================
+  # SINGLE TOOL SCENARIOS
+  # ============================================================================
+  
+  single_tool:
+    vector_only:
+      - id: "sc-v-001"
+        query: "What is our remote work policy?"
+        expected_tools: ["vector_search"]
+        difficulty: "straightforward"
+        must_contain: ["remote", "core hours"]
+
+      - id: "sc-v-002"
+        query: "How much is the home office stipend?"
+        expected_tools: ["vector_search"]
+        difficulty: "straightforward"
+        must_contain: ["500", "stipend"]
+
+      - id: "sc-v-003"
+        query: "What is our PTO policy?"
+        expected_tools: ["vector_search"]
+        difficulty: "straightforward"
+        must_contain: ["PTO", "flexible"]
+
+      - id: "sc-v-004"
+        query: "How do I respond to a production incident?"
+        expected_tools: ["vector_search"]
+        difficulty: "straightforward"
+        must_contain: ["incident", "SEV"]
+
+      - id: "sc-v-005"
+        query: "What are the code review requirements?"
+        expected_tools: ["vector_search"]
+        difficulty: "straightforward"
+        must_contain: ["review", "approval"]
+
+      - id: "sc-v-006"
+        query: "Tell me about company policies"
+        expected_tools: ["vector_search"]
+        difficulty: "ambiguous"
+        # Ambiguous - could return multiple policies
+
+    sql_only:
+      - id: "sc-s-001"
+        query: "How many active customers do we have?"
+        expected_tools: ["sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["customer"]
+
+      - id: "sc-s-002"
+        query: "What is our current MRR?"
+        expected_tools: ["sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["MRR"]
+
+      - id: "sc-s-003"
+        query: "How many refunds were processed in Q4 2024?"
+        expected_tools: ["sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["refund", "8"]
+
+      - id: "sc-s-004"
+        query: "Show me customer breakdown by plan tier"
+        expected_tools: ["sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["starter", "professional", "enterprise"]
+
+      - id: "sc-s-005"
+        query: "What's our revenue trend?"
+        expected_tools: ["sql_query"]
+        difficulty: "ambiguous"
+        # Could interpret as MRR, growth rate, etc.
+
+    jira_only:
+      - id: "sc-j-001"
+        query: "What P0 bugs are currently open?"
+        expected_tools: ["jira_search"]
+        difficulty: "straightforward"
+        must_contain: ["PLAT-1247"]
+
+      - id: "sc-j-002"
+        query: "Are there any mobile app crashes reported?"
+        expected_tools: ["jira_search"]
+        difficulty: "straightforward"
+        must_contain: ["MOB-892", "crash"]
+
+      - id: "sc-j-003"
+        query: "What's James Liu working on?"
+        expected_tools: ["jira_search"]
+        difficulty: "straightforward"
+        # Should find tickets assigned to James
+
+      - id: "sc-j-004"
+        query: "Show me open bugs"
+        expected_tools: ["jira_search"]
+        difficulty: "ambiguous"
+        # Could be all bugs, P0 only, etc.
+
+    slack_only:
+      - id: "sc-sl-001"
+        query: "What did engineering decide about the notification service?"
+        expected_tools: ["slack_search"]
+        difficulty: "straightforward"
+        must_contain: ["Kafka"]
+
+      - id: "sc-sl-002"
+        query: "Was there a recent incident?"
+        expected_tools: ["slack_search"]
+        difficulty: "straightforward"
+        must_contain: ["incident", "auth"]
+
+      - id: "sc-sl-003"
+        query: "What are customers saying about mobile performance?"
+        expected_tools: ["slack_search"]
+        difficulty: "straightforward"
+        must_contain: ["mobile", "crash"]
+
+      - id: "sc-sl-004"
+        query: "Any recent discussions?"
+        expected_tools: ["slack_search"]
+        difficulty: "ambiguous"
+        # Very broad, could return anything
+
+  # ============================================================================
+  # MULTI-TOOL SCENARIOS
+  # ============================================================================
+  
+  multi_tool:
+    vector_and_sql:
+      - id: "sc-m-vs-001"
+        query: "What's our refund policy and how many refunds did we process in Q4 2024?"
+        expected_tools: ["vector_search", "sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["refund", "30 days", "8"]
+
+      - id: "sc-m-vs-002"
+        query: "What are our pricing tiers and how many customers are on each?"
+        expected_tools: ["vector_search", "sql_query"]
+        difficulty: "straightforward"
+        must_contain: ["Starter", "Professional", "Enterprise"]
+
+    vector_and_jira:
+      - id: "sc-m-vj-001"
+        query: "Are there open bugs related to authentication and what does the incident runbook say about auth issues?"
+        expected_tools: ["vector_search", "jira_search"]
+        difficulty: "straightforward"
+        must_contain: ["PLAT-1247", "incident"]
+
+    sql_and_slack:
+      - id: "sc-m-ss-001"
+        query: "How many enterprise customers do we have and what are they asking for?"
+        expected_tools: ["sql_query", "slack_search"]
+        difficulty: "straightforward"
+        must_contain: ["enterprise", "customer"]
+
+    jira_and_slack:
+      - id: "sc-m-js-001"
+        query: "What's the status of the auth incident and is there a ticket tracking it?"
+        expected_tools: ["jira_search", "slack_search"]
+        difficulty: "straightforward"
+        must_contain: ["PLAT-1247", "incident"]
+
+  # ============================================================================
+  # EDGE CASES
+  # ============================================================================
+  
+  edge_cases:
+    empty_results:
+      - id: "sc-e-001"
+        query: "What's our policy on quantum computing?"
+        expected_tools: ["vector_search"]
+        difficulty: "edge_case"
+        must_not_contain: ["Here is the policy"]
+        # Should gracefully handle no results
+
+    off_topic:
+      - id: "sc-e-002"
+        query: "What's the weather like today?"
+        expected_tools: []
+        difficulty: "edge_case"
+        must_contain: ["Acme"]
+        # Should redirect to what it can help with
+
+    typos:
+      - id: "sc-e-003"
+        query: "Waht is our remtoe work polciy?"
+        expected_tools: ["vector_search"]
+        difficulty: "edge_case"
+        must_contain: ["remote"]
+        # Should handle typos gracefully
+
+    very_long:
+      - id: "sc-e-004"
+        query: "I'm a new employee and I just started last week and I'm trying to understand all the different policies we have especially around working from home because I live pretty far from the office and I want to know if I can work remotely and if so what are the expectations and requirements and also is there any stipend for home office equipment?"
+        expected_tools: ["vector_search"]
+        difficulty: "edge_case"
+        must_contain: ["remote", "stipend"]
+        # Should extract the core question
