@@ -19,7 +19,8 @@ ENV PATH="/root/.local/bin:$PATH"
 WORKDIR /app
 
 # Copy dependency files first for layer caching
-COPY pyproject.toml uv.lock ./
+# README.md is required by hatchling build backend (referenced in pyproject.toml)
+COPY pyproject.toml uv.lock README.md ./
 
 # Install all dependencies (including dev and eval groups)
 RUN uv sync --all-groups
